@@ -1,6 +1,5 @@
 library("spdep") 
 library("splm") 
-library("microbenchmark")
 library("graphics")
 
 
@@ -29,7 +28,7 @@ Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V
 Y.tilde.nt<-matrix(Yn1,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn1,nrow=n,ncol=T)),T),n,T)
 
 r2 <- 50
-n1 <- r2*r2   #n is 10000 
+n1 <- r2*r2   #n1 is 2500
 N1 <- n1*T 
 W1 <- cell2nb(r2,r2)    
 Wl1 <- nb2listw(W1)   #listw object 
@@ -42,7 +41,7 @@ Yn11 <- solve((diag(N1)-kronecker(diag(T),lambda1*Wn1)))%*%(X1*beta + rep(Cn1,T)
 #M <- M.matrix(lambda1,Yn11)
 
 r3 <- 35
-n2 <- r3*r3   #n is 10000 
+n2 <- r3*r3   #n2 is 1225
 N2 <- n2*T 
 W2 <- cell2nb(r3,r3)    
 Wl2 <- nb2listw(W2)   #listw object 
