@@ -270,27 +270,7 @@ gam.ij <- function(i,j,lambda,Yn1,n,Wn.a){
 } 
 
 
-
-
-
-
-
-###### Psi^2,Psi^3,Psi^4 
-# Psi.powers <- function(lambda,Yn1,n,Wn.a) { 
-#   Psi.mat <- matrix(rep(0,(3*n)),n,3)
-#   
-#   for(i in 1:n){ 
-#     Psi.mat[i,1]<-(Sum.T.Scor(i,lambda,Yn1,n,Wn.a))*(Sum.T.Scor(i,lambda,Yn1,n,Wn.a))
-#     Psi.mat[i,2]<- Psi.mat[i,1]*(Sum.T.Scor(i,lambda,Yn1,n,Wn.a))
-#     Psi.mat[i,3]<- Psi.mat[i,2]*(Sum.T.Scor(i,lambda,Yn1,n,Wn.a))
-#    
-#   }
-#   Psi.pwr<- colSums(Psi.mat)/n
-#   a <- M*(T-1)
-#   Psi.pwr[1] <- Psi.pwr[1]/(4*a*a)
-#   Psi.pwr[2] <- Psi.pwr[2]/(8*a*a*a)
-#   Psi.pwr[3] <- Psi.pwr[3]/(16*a*a*a*a)
-#   return(Psi.pwr)}
+###### E(g_i),E(g_i^2), E(g_i^3), E(g_i^4)
 
 
 
@@ -321,32 +301,7 @@ G.powers<- function(lambda,Yn1,n,Wn.a){
 
 g.powers <- G.powers(lambda1,Yn11,n1,Wn1.a)
 
-
-
-
-#Psi.powers(lambda1,Yn11,n1,Wn1)->ccc
-
-
-######  
-# 
-# gam <- function(lambda,Yn11,n,Wn){ 
-#   
-#   gam.mat <- matrix(rep(0,(3*n)),n,3)
-#   for(i in 1:r2){ 
-#     for(j in 1:r2){ 
-#       gam.mat[(i-1)*r2+j,1] <- Phi.ij(i,j,lambda,Yn11,n,Wn)*Phi.ij(i,j,lambda,Yn11,n,Wn)
-#       gam.mat[(i-1)*r2+j,2] <- Sum.T.Scor(i,lambda,Yn11,n,Wn) * Sum.T.Scor(j,lambda,Yn11,n,Wn) * Phi.ij(i,j,lambda,Yn11,n,Wn)
-#       gam.mat[(i-1)*r2+j,3] <- (Sum.T.Scor(i,lambda,Yn11,n,Wn))*gam.mat[(i-1)*r2+j,2]
-#        } 
-#   } 
-#   gam.mat<- colSums(gam.mat)/n
-#   gam.mat[1] <- gam.mat[1]/4
-#   gam.mat[2] <- gam.mat[2]/(8*(T-1)*(T-1)*M*M)
-#   gam.mat[3] <- gam.mat[3]/(16*(T-1)*(T-1)*(T-1)*M*M*M)
-#   return(gam.mat) 
-# } 
-
-
+###### E(g_igamma_ij)
 Gam.Con1<- function(lambda,Yn1,n,Wn.a){
   Sn <- diag(n)-lambda*Wn.a 
   V.tilde.nt<-Sn%*%Y.tilde.nt(n,Yn1)
@@ -386,16 +341,6 @@ Gam.Con1<- function(lambda,Yn1,n,Wn.a){
   gam.pwr[3] <- gam.pwr[3]/(8*M*M*M)
   gam.pwr[4] <- gam.pwr[4]/(16*M*M*M*M)
   
-  # gam2.s <- 0
-  # for(i in 1:n){
-  #   for(j in 1:n){
-  #     for(k in 1:n){
-  #       gam2.s <- gam2.s +   Scor.iT[i]*Scor.iT[j]*gamm.ij[i,k]*gamm.ij[j,k]
-  #     }
-  #   }
-  # }
-  # gam2 <- gam2.s/(16*n*n*n*M*M*M*M)
-  # 
   return(gam.pwr)
   
 }
@@ -782,32 +727,7 @@ lines(seq.c,abs(rela.asy),col="red",type="l",lty=2,  lwd=2)
 
 
 
-# ############# Edgeworth Expansion
-# 
-# 
-# Gn <- Wn.a%*%(diag(n)-lambda1*Wn.a)
-# Gn2 <- Gn%*%Gn
-# Gn3 <- Gn2%*%Gn
-# trGn <- sum(diag(Gn))
-# trGn2.s <- sum(diag(Gn%*%Gn+crossprod(Gn))) 
-# a  <- (T-1)*(trGn2.s-2/n*(trGn*trGn))
-# f  <- function(u){
-#   fvalue <- a^(-3/2)*(T-1)/3*(8*trGn*trGn*trGn/(n*n)-6*trGn*trGn2.s/n+sum(diag(Gn3+3*Gn2%*%t(Gn)))+
-#                           (sum(diag(2*Gn3+3*crossprod(Gn,Gn2)))-3*trGn*(sum(diag(Gn2))+trGn2.s)
-#                            +4*trGn*trGn*trGn/(n*n))*u*u)
-#   return(fvalue)
-#   }
-# 
-# 
-# ######### CDF of lambda-lambda1
-# CDF.EGE <- function(x){
-#   p <- pnorm(sqrt(a)*x,0,1)+f(sqrt(a)*x)*dnorm(sqrt(a)*x,0,1)
-#   return(p)
-# }
-
-
-
-
+   
 
 ########## Edgeworth Expansion
 
