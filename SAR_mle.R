@@ -1,15 +1,17 @@
+###### Figure 2: SAR(1) model: QQ-plot vs normal of the MLE, for different sample sizes and different weight matrices ######
+
 library("spdep")
 library("splm")
 
-################# n = 24
+################# n = 24 ################
 
 r1 <- 6 
 c1 <- 4
 n <- 24 
 
-T <-2
+T <- 2    ### time dimension 
 
-#initialize parameters 
+##### initialize parameters 
 
 beta <- 0.0
 lambda1 <- 0.2
@@ -18,8 +20,9 @@ sig <- 1.0
 lambda2 <- 0.0
 pho2 <- 0.0
 N <- n*T
-MC.size<-5000
+MC.size<-5000   #### Monte Carlo size
 
+##### log-likelihood function 
 mylog.lik<-function(lambda,Yn1) {
   
   Sn <- diag(n)-lambda*as.matrix(Wn)
@@ -42,26 +45,23 @@ mylog.lik<-function(lambda,Yn1) {
   
 }
 
-set.seed(123)
+
 
 ################# SETTING 1 (W = rook)
 
+set.seed(123)
 
 z1 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 1000 times
+### MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1)   
+  W <- cell2nb(r1,c1)   # rook type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
-  
-#   d1 <- data.frame(id = rep(c(1:n),T),time = c(rep(1,n),rep(2,n)), Yn1@x,X)
-#   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
-#   summary(feml1)
   
   z1[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
   print(i)
@@ -75,9 +75,9 @@ set.seed(123)
 
 z1.2 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 1000 times
+### MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen")   
+  W <- cell2nb(r1,c1,type = "queen")   # queen type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -89,7 +89,7 @@ for(i in 1:MC.size){
 #   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
 #   summary(feml1)
   
-  z1.2[i,]=optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum#c(feml1$coefficients[1])
+  z1.2[i,]=optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
   print(i)
 }
 
@@ -104,7 +104,7 @@ z1.3 <- matrix(rep(0,MC.size), MC.size,1)
 
 # MC repeat 1000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen", torus=T)   
+  W <- cell2nb(r1,c1,type = "queen", torus=T)   #queen with torus type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -121,7 +121,7 @@ for(i in 1:MC.size){
 }
 
 
-
+########## QQ-plots of MLE lambda hat for n=24 ########
 
 par(mfrow=c(1,3))
 
@@ -135,15 +135,15 @@ abline(0,1,col = 2)
 
 
 
-################# N = 100
+################# n = 100 ###############
 
 r1 <- 10
 c1 <- 10
 n <- r1*c1
 
-T <-2
+T <-2   #### time dimension
 
-#define theta1 and theta2
+### initialize parameters
 beta <- 0.0
 lambda1 <- 0.2
 pho1 <- 0.0
@@ -159,9 +159,9 @@ set.seed(123)
 
 z11 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 1000 times
+# MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1)   
+  W <- cell2nb(r1,c1)   # rook type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -169,10 +169,6 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-#   d1 <- data.frame(id = rep(c(1:n),T),time = c(rep(1,n),rep(2,n)), Yn1@x,X)
-#   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
-#   summary(feml1)
-#   
   z11[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
   print(i)
 }
@@ -185,9 +181,9 @@ set.seed(123)
 
 z11.2 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 1000 times
+# MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen")   
+  W <- cell2nb(r1,c1,type = "queen")   # queen type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -195,9 +191,6 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-#   d1 <- data.frame(id = rep(c(1:n),T),time = c(rep(1,n),rep(2,n)), Yn1@x,X)
-#   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
-#   summary(feml1)
   
   z11.2[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
   print(i)
@@ -212,9 +205,9 @@ set.seed(123)
 
 z11.3 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 1000 times
+# MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen", torus=T)   
+  W <- cell2nb(r1,c1,type = "queen", torus=T)    # queen with torus type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -222,15 +215,13 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-#   d1 <- data.frame(id = rep(c(1:n),T),time = c(rep(1,n),rep(2,n)), Yn1@x,X)
-#   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
-#   summary(feml1)
-#   
+
   z11.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
   print(i)
 }
 
 
+########## QQ-plots of MLE lambda hat for n=100 ########
 
 
 par(mfrow=c(1,3))
