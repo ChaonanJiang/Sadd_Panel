@@ -62,7 +62,7 @@ for(i in 1:MC.size){
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
-  Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
   z1[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
@@ -84,7 +84,7 @@ for(i in 1:MC.size){
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
-  Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
 
   
@@ -109,7 +109,7 @@ for(i in 1:MC.size){
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
-  Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
   
   z1.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
@@ -187,7 +187,7 @@ for(i in 1:MC.size){
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
-  Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
   z11[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
@@ -209,7 +209,7 @@ for(i in 1:MC.size){
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
-  Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
   
   z11.2[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MKE
@@ -233,7 +233,7 @@ for(i in 1:MC.size){
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
-  Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
 
   z11.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
