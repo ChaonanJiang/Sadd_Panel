@@ -23,6 +23,7 @@ N <- n*T
 MC.size<-5000   #### Monte Carlo size
 
 ##### log-likelihood function 
+
 mylog.lik<-function(lambda,Yn1) {
   
   Sn <- diag(n)-lambda*as.matrix(Wn)
@@ -55,7 +56,7 @@ z1 <- matrix(rep(0,MC.size), MC.size,1)
 
 ### MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1)   # rook type
+  W <- cell2nb(r1,c1)   #rook type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -63,7 +64,7 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-  z1[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
+  z1[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
 }
 
@@ -77,7 +78,7 @@ z1.2 <- matrix(rep(0,MC.size), MC.size,1)
 
 ### MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen")   # queen type
+  W <- cell2nb(r1,c1,type = "queen")   #queen type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -85,11 +86,9 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-#   d1 <- data.frame(id = rep(c(1:n),T),time = c(rep(1,n),rep(2,n)), Yn1@x,X)
-#   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
-#   summary(feml1)
+
   
-  z1.2[i,]=optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
+  z1.2[i,]=optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
 }
 
@@ -102,7 +101,7 @@ set.seed(123)
 
 z1.3 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 1000 times
+# MC repeat 5000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1,type = "queen", torus=T)   #queen with torus type
   Wl <- nb2listw(W)   #listw object
@@ -112,11 +111,8 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-#   d1 <- data.frame(id = rep(c(1:n),T),time = c(rep(1,n),rep(2,n)), Yn1@x,X)
-#   feml1 <- spml(Yn1.x~X,  listw = Wl, data = d1, model = "within", spatial.error = "none",lag = T, LeeYu = T, Hess = F)
-#   summary(feml1)
   
-  z1.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
+  z1.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
 }
 
@@ -153,6 +149,30 @@ pho2 <- 0.0
 N <- n*T
 MC.size<-5000
 
+##### log-likelihood function 
+
+mylog.lik<-function(lambda,Yn1) {
+  
+  Sn <- diag(n)-lambda*as.matrix(Wn)
+  Y.tilde.t<-matrix(0,nrow=n,ncol=T)
+  index<-seq(1,n,by=1)
+  Y.tilde.t[,1]<-Yn1[index]
+  for (i in 2:T)
+  {
+    a<-(i-1)*n+1
+    b<- n*i 
+    index<-seq(a,b,1)
+    Y.tilde.t[,i]<-Yn1[index]  
+  }
+  
+  Ybar<-apply(Y.tilde.t,1,mean)
+  Y.tilde.nt <- Y.tilde.t - matrix(rep(Ybar,T),n,T)
+  V.tilde.nt<-Sn %*% Y.tilde.nt
+  ell_nt<- (T-1)*log(det(Sn))  - 0.5* sum(diag((t(V.tilde.nt) %*% (V.tilde.nt))))
+  return(ell_nt)
+  
+}
+
 ################# SETTING 1 (W = rook)
 
 set.seed(123)
@@ -161,7 +181,7 @@ z11 <- matrix(rep(0,MC.size), MC.size,1)
 
 # MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1)   # rook type
+  W <- cell2nb(r1,c1)   #rook type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -169,7 +189,7 @@ for(i in 1:MC.size){
   V<- rnorm(N)      
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
-  z11[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
+  z11[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
 }
 
@@ -183,7 +203,7 @@ z11.2 <- matrix(rep(0,MC.size), MC.size,1)
 
 # MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen")   # queen type
+  W <- cell2nb(r1,c1,type = "queen")   #queen type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -192,7 +212,7 @@ for(i in 1:MC.size){
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
   
-  z11.2[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
+  z11.2[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MKE
   print(i)
 }
 
@@ -207,7 +227,7 @@ z11.3 <- matrix(rep(0,MC.size), MC.size,1)
 
 # MC repeat 5000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen", torus=T)    # queen with torus type
+  W <- cell2nb(r1,c1,type = "queen", torus=T)    #queen with torus type
   Wl <- nb2listw(W)   #listw object
   Wn <- listw2dgCMatrix(Wl)  #sparse matrix
   Cn0 <- rnorm(n)   #fixed effects
@@ -216,7 +236,7 @@ for(i in 1:MC.size){
   Yn1 <- solve((Diagonal(N)-kronecker(Diagonal(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
   
 
-  z11.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #c(feml1$coefficients[1])
+  z11.3[i,]= optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum #find MLE
   print(i)
 }
 
