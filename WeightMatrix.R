@@ -4,8 +4,8 @@ library("splm")
 
 #################### n is 24 ##################
 
-r1 <- 6  ### number of rows in the grid
-c1 <- 4  ### number of columns in the grid
+r1 <- 4  ### number of rows in the grid
+c1 <- 6  ### number of columns in the grid
 ##### Room type
 nb3rt <- cell2nb(r1, c1)  
 xyc <- attr(nb3rt, "region.id")
