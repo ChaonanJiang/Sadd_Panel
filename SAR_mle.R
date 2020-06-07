@@ -20,7 +20,7 @@ sig <- 1.0
 lambda2 <- 0.0
 pho2 <- 0.0
 N <- n*T
-MC.size<-5000   #### Monte Carlo size
+MC.size<-25000   #### Monte Carlo size
 
 ##### log-likelihood function 
 
@@ -54,7 +54,7 @@ set.seed(123)
 
 z1 <- matrix(rep(0,MC.size), MC.size,1)
 
-### MC repeat 5000 times
+### MC repeat 25000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1)   #rook type
   Wl <- nb2listw(W)   #listw object
@@ -76,7 +76,7 @@ set.seed(123)
 
 z1.2 <- matrix(rep(0,MC.size), MC.size,1)
 
-### MC repeat 5000 times
+### MC repeat 25000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1,type = "queen")   #queen type
   Wl <- nb2listw(W)   #listw object
@@ -101,7 +101,7 @@ set.seed(123)
 
 z1.3 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 5000 times
+# MC repeat 25000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1,type = "queen", torus=T)   #queen with torus type
   Wl <- nb2listw(W)   #listw object
@@ -147,7 +147,7 @@ sig <- 1.0
 lambda2 <- 0.0
 pho2 <- 0.0
 N <- n*T
-MC.size<-5000
+MC.size<- 25000
 
 ##### log-likelihood function 
 
@@ -179,7 +179,7 @@ set.seed(123)
 
 z11 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 5000 times
+# MC repeat 25000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1)   #rook type
   Wl <- nb2listw(W)   #listw object
@@ -201,7 +201,7 @@ set.seed(123)
 
 z11.2 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 5000 times
+# MC repeat 25000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1,type = "queen")   #queen type
   Wl <- nb2listw(W)   #listw object
@@ -225,7 +225,7 @@ set.seed(123)
 
 z11.3 <- matrix(rep(0,MC.size), MC.size,1)
 
-# MC repeat 5000 times
+# MC repeat 25000 times
 for(i in 1:MC.size){
   W <- cell2nb(r1,c1,type = "queen", torus=T)    #queen with torus type
   Wl <- nb2listw(W)   #listw object
