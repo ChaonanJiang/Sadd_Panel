@@ -541,7 +541,7 @@ CDF.EMP <- ecdf((z1.2-mean(z1.2))/(1))
 
 
 seq.c <- seq(-0.9,-0.65,0.005)
-
+cdf.asy <- pnorm(seq.c,0,sqrt(asy.sigma2))
 rela.sad <- vector(length = length(seq.c))
 rela.asy <- vector(length = length(seq.c))
 rela.edg <- vector(length = length(seq.c))
