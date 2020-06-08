@@ -53,7 +53,7 @@ V2 <- rnorm(N2)
 Yn12 <- solve((diag(N2)-kronecker(diag(T),lambda1*Wn2)))%*%(X2*beta + rep(Cn2,T) + V2) 
 
 
-###### log likelihood function 
+###### log-likelihood function 
 
 mylog.lik<-function(lambda,Yn1) { 
   
