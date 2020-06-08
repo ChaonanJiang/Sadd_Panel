@@ -5,6 +5,8 @@ library("splm")
 FHD <- readMat("FHD.mat")
 Wn <-  readMat("matrices.mat")
 
+############# load 1960-1970 data ###############
+
 Yn <- FHD$data[1:264,3]  #### Investment rate
 Xn <- FHD$data[1:264,5]  #### Saving rate
 
@@ -20,6 +22,8 @@ MCsize <- 10000
 lw <- mat2listw(Wn.a)
 dt <- data.frame(id = rep(c(1:n),T), time =kronecker(1960:1970,rep(1,24)),Yn,Xn)
 
+######## transform Y_{nt} and X_{nt} ########
+
 Y.tilde.nt<-matrix(Yn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn,nrow=n,ncol=T)),T),n,T)
 X.tilde.nt<-matrix(Xn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Xn,nrow=n,ncol=T)),T),n,T)
 
@@ -31,7 +35,7 @@ sig2 <- sarar$sigma2
 lambda0 <- 0
 
 
-###### log likelihood function 
+###### log-likelihood function 
 
 log.lik<-function(beta,lambda,rho,sig2) { 
   
