@@ -452,7 +452,7 @@ CDF.EDG <- function(x){
 
 ###############################################################################
 # Figure 3: PP-plot for saddlepoint (continuous line) vs asymptotic normal    #
-# (dotted line) probability approximation for n=24 and Wn=Rook                #
+# (dotted line) probability approximation for n=24 and Wn=queen.              #
 ###############################################################################
 
 CDF.EMP <- ecdf((z1.2-mean(z1.2)))
@@ -484,7 +484,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 # Figure 5: Relative error (in absolute value) for the approximate left tail  #
 # probability, as obtained using the Gaussian asymptotic theory (dotted line),#
 # the Edgeworth approximation (dotted line with diamonds) and saddlepoint     #
-# approximation (continuous line) for the MLE. n=24 and Wn=queen              #
+# approximation (continuous line) for the MLE. n=24 and Wn=queen.             #
 ###############################################################################
 
 
