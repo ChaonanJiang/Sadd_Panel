@@ -2,6 +2,7 @@ library("spdep")
 library("splm") 
 library("graphics")
 
+
 ######### LOAD the MC results for MLE, z1 data from SAR_mle.rdata
 load("SAR_mle.rdata")
 
