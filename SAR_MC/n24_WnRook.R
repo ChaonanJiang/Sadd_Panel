@@ -86,7 +86,7 @@ abline(v=lambda1,col=2,lwd=2)
 myMLE.lambda<-optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum 
 
 
-###### Y transform ###########
+###### transform Y_{nt} ###########
 Y.tilde.nt <- function(n,Yn1){
   Y.tilde.t<-matrix(Yn1,nrow=n,ncol=T) 
   Ybar<-rowSums(Y.tilde.t)/T
@@ -346,7 +346,7 @@ lines(theta.grid,dnorm(theta.grid,0,sqrt(asy.sigma2)),col="red",lwd=2, lty=2) #a
 
 
 
-####################### CDF of SAD ###############
+####################### CDF of saddlepoint approximation ###############
 
 CDF.SAD <- function(b){
   v <- Sad(b)
@@ -384,7 +384,7 @@ CDF.EDG <- function(x){
 # (dotted line) probability approximation for n=24 and Wn=Rook                #
 ###############################################################################
 
-CDF.EMP <- ecdf((z1-mean(z1)))
+CDF.EMP <- ecdf((z1-mean(z1)))    
 
 
 seq.b <- seq(-0.99,0.99,0.01)

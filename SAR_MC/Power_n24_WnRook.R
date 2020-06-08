@@ -84,7 +84,7 @@ abline(v=lambda1,col=2,lwd=2)
 myMLE.lambda<-optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum 
 
 
-###### Y transform ###########
+###### transform Y_{nt} ###########
 Y.tilde.nt <- function(n,Yn1){
   Y.tilde.t<-matrix(Yn1,nrow=n,ncol=T) 
   Ybar<-rowSums(Y.tilde.t)/T
