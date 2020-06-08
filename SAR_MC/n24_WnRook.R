@@ -328,7 +328,7 @@ Gn <- Wn.a%*%solve(diag(n)-lambda1*Wn.a)
 asy.sigma2 <- sum(diag((t(Gn)+Gn)%*%Gn))/(n*n*(T-1))
 
 
-######### LOAD the MC results for MLE, z1 data from SAR_mle.R
+######### LOAD the MC results for MLE, z1 data from SAR_mle.rdata
 
 #################################################################################
 # Figure 4: Density plot for saddlepoint (continuous line) vs asymptotic normal #
