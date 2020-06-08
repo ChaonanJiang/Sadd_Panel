@@ -2,7 +2,8 @@ library("spdep")
 library("splm") 
 library("graphics")
 
-
+######### LOAD the MC results for MLE, z1 data from SAR_mle.rdata
+load("SAR_mle.rdata")
 
 r1 <- 6 
 c1 <-4 
@@ -328,8 +329,6 @@ Gn <- Wn.a%*%solve(diag(n)-lambda1*Wn.a)
 asy.sigma2 <- sum(diag((t(Gn)+Gn)%*%Gn))/(n*n*(T-1))
 
 
-######### LOAD the MC results for MLE, z1 data from SAR_mle.rdata
-
 #################################################################################
 # Figure 4: Density plot for saddlepoint (continuous line) vs asymptotic normal #
 # (dotted line) probability approximation to the exact density for the MLE,     #
@@ -439,34 +438,3 @@ lines(smooth,col="blue",lwd=2)            #Saddlepoint
 lines(seq.c,abs(rela.asy),col="red",type="l",lty=2,  lwd=2)     #Gaussian asymptotic
 
 
-####### Relative error (in absolute value) for the approximate right tail
-
-CDF.EMP <- ecdf((z1-mean(z1)))
-
-
-seq.c <- seq(0.275,0.575,0.005)
-
-cdf.asy <- pnorm(seq.c,0,sqrt(asy.sigma2))
-rela.lug <- vector(length = length(seq.c))
-rela.asy <- vector(length = length(seq.c))
-rela.edg <- vector(length = length(seq.c))
-
-for(i in 1:length(seq.c)){
-  rela.lug[i] <- (1-CDF.SAD1(seq.c[i]))/(1-CDF.EMP(seq.c[i]))-1
-  rela.asy[i] <- (1-cdf.asy[i])/(1-CDF.EMP(seq.c[i]))-1
-  rela.edg[i] <- (1-CDF.EDG(seq.c[i]))/(1-CDF.EMP(seq.c[i]))-1
-}
-
-
-smooth <- smooth.spline(seq.c,abs(rela.lug),df=16)
-smooth1 <- smooth.spline(seq.c,abs(rela.edg),df=20)
-
-plot(smooth1,col="dark green",pch=18,  lwd=2, ylim = c(0,1.2),xlab = "b",
-     ylab = "Relative error",main="")
-lines(smooth,col="blue",lwd=2)
-lines(seq.c,abs(rela.asy),col="red",type="l",lty=2,  lwd=2)
-
-
-
-
- 
