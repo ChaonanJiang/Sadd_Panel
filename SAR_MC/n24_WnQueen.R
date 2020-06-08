@@ -414,6 +414,18 @@ lines(theta.grid,dnorm(theta.grid,0,sqrt(asy.sigma2)),
 # lines)                                                                        #
 #################################################################################
 
+lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+grid <- seq(-0.99,0.99,0.01)
+DEN <- NULL
+den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
+for (j in 1:N.C) {
+  DEN <- density(lambda.hat2[,j]-mean(lambda.hat2[,j]))
+  for (i in 1:length(grid)) {
+    den.1[i,j] <- approx(DEN$x,DEN$y,xout=grid[i])$y
+    if(is.na(den.1[i,j])){den.1[i,j]=0}
+    
+  }
+}
 
 source("fbplot.R")
 plot(my.hist$breaks,
@@ -423,10 +435,47 @@ lines(theta.grid,p.std,typ='l',col="blue",ylim = c(0,2),lwd=2)
 par(new=TRUE)
 fbplot(den.1,method = "MBD",ylim = c(0,1.8),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
 
+###### zoom on the left tail
+lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+grid <- seq(-0.99,-0.5,0.01)
+DEN <- NULL
+den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
+for (j in 1:N.C) {
+  DEN <- density(lambda.hat2[,j]-mean(lambda.hat2[,j]))
+  for (i in 1:length(grid)) {
+    den.1[i,j] <- approx(DEN$x,DEN$y,xout=grid[i])$y
+    if(is.na(den.1[i,j])){den.1[i,j]=0}
+    
+  }
+}
 
-
+plot(my.hist$breaks,
+     c(my.hist$density,0)
+     ,type="s",xlim=c(-0.99,-0.5),ylim = c(0,0.5),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")
+lines(theta.grid,p.std,typ='l',col="blue",ylim = c(0,2),lwd=2)
 par(new=TRUE)
-fbplot(den.1,method = "MBD",ylim = c(0,4),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
+fbplot(den.1,method = "MBD",ylim = c(0,0.5),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
+
+###### zoom on the right tail
+lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+grid <- seq(0.5,0.99,0.01)
+DEN <- NULL
+den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
+for (j in 1:N.C) {
+  DEN <- density(lambda.hat2[,j]-mean(lambda.hat2[,j]))
+  for (i in 1:length(grid)) {
+    den.1[i,j] <- approx(DEN$x,DEN$y,xout=grid[i])$y
+    if(is.na(den.1[i,j])){den.1[i,j]=0}
+    
+  }
+}
+
+plot(my.hist$breaks,
+     c(my.hist$density,0)
+     ,type="s",xlim=c(0.5,0.99),ylim = c(0,0.5),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")
+lines(theta.grid,p.std,typ='l',col="blue",ylim = c(0,2),lwd=2)
+par(new=TRUE)
+fbplot(den.1,method = "MBD",ylim = c(0,0.5),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
 
 ####################### CDF of saddlepoint approximation ###############
 
@@ -489,7 +538,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 
 
 CDF.EMP <- ecdf((z1.2-mean(z1.2))/(1))
-cdf.asy <- pnorm(seq.c,0,sqrt(asy.sigma2))
+
 
 seq.c <- seq(-0.9,-0.65,0.005)
 
@@ -504,10 +553,9 @@ for(i in 1:length(seq.c)){
   rela.edg[i] <- (CDF.EDG(seq.c[i]))/(CDF.EMP(seq.c[i]))-1
 }
 
-
+cdf.asy <- pnorm(seq.c,0,sqrt(asy.sigma2))
 smooth <- smooth.spline(seq.c,abs(rela.sad),df=16)
 smooth1 <- smooth.spline(seq.c,abs(rela.edg),df=16)
-smooth2 <- smooth.spline(seq.c,abs(rela.boo),df=8)
 plot(smooth1,col="dark green",pch=18,  lwd=2, ylim = c(0,1.1),xlab = "z",
      ylab = "Relative error",main="")     #edgeworth
 lines(smooth,col="blue",lwd=2)         #saddlepint

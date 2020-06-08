@@ -404,7 +404,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 
 seq.c <- seq(0.35,0.55,0.005)
 
-cdf.asy <- pnorm(seq.c,0,sqrt(asy.sigma2))
+
 rela.sad <- vector(length = length(seq.c))
 rela.asy <- vector(length = length(seq.c))
 rela.edg <- vector(length = length(seq.c))
@@ -415,7 +415,7 @@ for(i in 1:length(seq.c)){
   rela.edg[i] <- (1-CDF.EDG(seq.c[i]))/(1-CDF.EMP(seq.c[i]))-1
 }
 
-
+cdf.asy <- pnorm(seq.c,0,sqrt(asy.sigma2))
 smooth <- smooth.spline(seq.c,abs(rela.sad),df=20)
 smooth1 <- smooth.spline(seq.c,abs(rela.edg),df=20)
 plot(smooth1,col="dark green",pch=18,  lwd=2, ylim = c(0,1.1),xlab = "z",
