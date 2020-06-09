@@ -1241,7 +1241,7 @@ plot(theta.grid,p.std)
 
 #############################################################################
 # Table 2: SARAR(1,1) model: p-values of Saddlepoint (SAD) and first-order  #
-# asymptotic (ASY) approximation between 1960-1970.                         #
+# asymptotic (ASY) approximation between 1960-1970 for MLE lambda hat.      #
 #############################################################################
 
 #### cdf of saddlepoint approximaiton
