@@ -6,7 +6,7 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 
 # Content
 
-1- WeightMatrix.R (https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
+1-[WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
 
 2- [SAR_mle.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC/SAR_mle.R) generates a MC simulation based on SAR(1) model to compare the distribution of MLE to the Gaussian asymptotic distribution via QQ-plots in Figure 2.
 
