@@ -2,15 +2,19 @@ library("R.matlab")
 library("spdep") 
 library("splm") 
 
-FHD <- readMat("C:/Users/jiangc/Dropbox/Sadd_Panel_Latex/Papers/applications/Scaillet_Suggestions/FHD Data Debarsy Ertur/FHD.mat")
-Wn <-  readMat("C:/Users/jiangc/Dropbox/Sadd_Panel_Latex/Papers/applications/Scaillet_Suggestions/FHD Data Debarsy Ertur/matrices.mat")
+#############load data and weight matrices #########
+
+FHD <- readMat("FHD.mat")
+Wn <-  readMat("matrices.mat")
+
+############# load 1971-1985 data ###############
 
 Yn <- FHD$data[265:624,3]  #### Investment rate
 Xn <- FHD$data[265:624,5]  #### Saving rate
 
 
-Wdia1 <- Wn$Wdia1
-W <- Wn$W
+Wdia1 <- Wn$Wdia1        #inverse distance
+W <- Wn$W                #7 nearest neighbours
 Wn.a <- as.matrix(W)
 Mn.a <- Wn.a
 n <- 24
@@ -20,8 +24,11 @@ MCsize <- 10000
 lw <- mat2listw(Wn.a)
 dt <- data.frame(id = rep(c(1:n),T), time =kronecker(1971:1985,rep(1,24)),Yn,Xn)
 
+######## transform Y_{nt} and X_{nt} ########
+
 Y.tilde.nt<-matrix(Yn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn,nrow=n,ncol=T)),T),n,T)
 X.tilde.nt<-matrix(Xn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Xn,nrow=n,ncol=T)),T),n,T)
+
 
 sarar <- spml(formula = Yn~Xn, data = dt , listw = mat2listw(W), model = "within", spatial.error= "b",lag = T, LeeYu = T, Hess = F)
 summary(sarar)
@@ -702,7 +709,7 @@ Phi.ij <- function(i,j,beta,lambda,rho,sig2){
   
 } 
 
-###### g g^2 g^3 g^4
+###### the expected values of g g^2 g^3 g^4
 
 
 G.powers<- function(beta,lambda,rho,sig2){
@@ -1150,6 +1157,13 @@ p.std<-p/c.int
 
 plot(theta.grid,p.std)
 
+#############################################################################
+# Table 2: SARAR(1,1) model: p-values of Saddlepoint (SAD) and first-order  #
+# asymptotic (ASY) approximation between 1971-1985 for MLE beta hat.        #
+#############################################################################
+
+##### cdf of saddlepoint approximaiton
+
 CDF.SAD1 <- function(b){
   theta.grid<-seq(-0.9999,0.9999,by=0.0001)
   p<-NULL
@@ -1164,19 +1178,8 @@ CDF.SAD1 <- function(b){
 1-CDF.SAD1(round(sarar$coefficients[3],4))   ####  sparse weights matrix:0.0455737, Wdia1: multiple solutions of sad
 
 
-#### L-R 
-CDF.SAD <- function(b){
-  v <- Sad(b)
-  c <- v*sqrt(Der2.cgf(v))
-  r <- sign(v)*sqrt(2*n*(v*b-cgf(v)))
-  p <- 1-pnorm(r)+dnorm(r)*(1/c-1/r)
-  return(p)
-}
 
-CDF.SAD(sarar$coefficients[3])
-
-
-#### Asymptotic varience
+#### Asymptotic variance
 
 SIGMA <- function(beta,lambda,rho,sig2){
   Sn <- diag(n)-lambda*Wn.a 

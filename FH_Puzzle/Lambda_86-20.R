@@ -2,15 +2,20 @@ library("R.matlab")
 library("spdep") 
 library("splm") 
 library("doSNOW")
-FHD <- readMat("C:/Users/jiangc/Dropbox/Sadd_Panel_Latex/Papers/applications/Scaillet_Suggestions/FHD Data Debarsy Ertur/FHD.mat")
-Wn <-  readMat("C:/Users/jiangc/Dropbox/Sadd_Panel_Latex/Papers/applications/Scaillet_Suggestions/FHD Data Debarsy Ertur/matrices.mat")
+
+#############load data and weight matrices #########
+
+FHD <- readMat("FHD.mat")
+Wn <-  readMat("matrices.mat")
+
+############# load 1986-2000 data ###############
 
 Yn <- FHD$data[625:984,3]  #### Investment rate
 Xn <- FHD$data[625:984,5]  #### Saving rate
 
 
-Wdia1 <- Wn$Wdia1
-W <- Wn$W
+Wdia1 <- Wn$Wdia1          #inverse distance 
+W <- Wn$W                  #7 nearest neighbours
 Wn.a <- as.matrix(W)
 Mn.a <- Wn.a
 n <- 24
@@ -20,8 +25,15 @@ MCsize <- 10000
 lw <- mat2listw(Wn.a)
 dt <- data.frame(id = rep(c(1:n),T), time =kronecker(1986:2000,rep(1,24)),Yn,Xn)
 
+######## transform Y_{nt} and X_{nt} ########
+
 Y.tilde.nt<-matrix(Yn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn,nrow=n,ncol=T)),T),n,T)
 X.tilde.nt<-matrix(Xn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Xn,nrow=n,ncol=T)),T),n,T)
+
+#############################################################################
+# Table 1: SARAR(1,1) model: Maximum likelihood estimates of Parameters and #
+# standard errors between 1986-2000.                                        #
+#############################################################################
 
 sarar <- spml(formula = Yn~Xn, data = dt , listw = mat2listw(W), model = "within", spatial.error= "b",lag = T, LeeYu = T, Hess = F)
 summary(sarar)
@@ -31,22 +43,8 @@ rho <- sarar$coefficients[2]
 sig2 <- sarar$sigma2
 lambda0 <- 0
 
-# ###### simulate
-# 
-#   Cn0 <- rnorm(n)
-#   Xn <- rnorm(n*T)
-#   V <- rnorm(n*T,0,sqrt(sig2))
-#   Yn <- as.matrix(solve((Diagonal(n*T)-kronecker(Diagonal(T),lambda0*Wn.a)))%*%(Xn*beta + rep(Cn0,T) + solve((Diagonal(n*T)-kronecker(Diagonal(T),rho*Mn.a)))%*%V))
-#   
-#   dt1 <- data.frame(id = rep(c(1:n),T), time =kronecker(1986:2000,rep(1,24)),Yn,Xn)
-#   
-#   Y.tilde.nt<-matrix(Yn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn,nrow=n,ncol=T)),T),n,T)
-#   X.tilde.nt<-matrix(Xn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Xn,nrow=n,ncol=T)),T),n,T)
-#   V.tilde.nt <- matrix(V,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(V,nrow=n,ncol=T)),T),n,T)
-#   sarar1 <- spml(formula = Yn~Xn, data = dt1 , listw = mat2listw(W), model = "within", spatial.error= "b",lag = T, LeeYu = T, Hess = F)
-#   summary(sarar1)
   
-##### loglikelihood
+##### log-likelihood
   
 log.lik<-function(beta,lambda,rho,sig2) { 
   
@@ -59,7 +57,7 @@ log.lik<-function(beta,lambda,rho,sig2) {
   
 } 
 
-###### The first derivative of log likelihood  
+###### The first derivative of log-likelihood  
 
 der1.log.lik <- function(beta,lambda,rho,sig2) { 
   
@@ -1219,6 +1217,7 @@ for(i in 1:length(seq.b)){
 }
 
 plot(seq.b,der2.cgf.w)
+
 ###### find saddlepoints
 Sad <- function(a){
   
@@ -1257,6 +1256,13 @@ p.std<-p/c.int
 
 plot(theta.grid,p.std)
 
+#############################################################################
+# Table 2: SARAR(1,1) model: p-values of Saddlepoint (SAD) and first-order  #
+# asymptotic (ASY) approximation between 1986-2000 for MLE lambda hat.      #
+#############################################################################
+
+##### cdf of saddlepoint approximaiton
+
 CDF.SAD1 <- function(b){
   theta.grid<-seq(-1,1,by=0.0001)
   p<-NULL
@@ -1271,19 +1277,7 @@ CDF.SAD1 <- function(b){
 1-CDF.SAD1(round(sarar$coefficients[1],4)) 
   
 
-#### L-R 
-CDF.SAD <- function(b){
-  v <- Sad(b)
-  c <- v*sqrt(Der2.cgf(v))
-  r <- sign(v)*sqrt(2*n*(v*b-cgf(v)))
-  p <- 1-pnorm(r)+dnorm(r)*(1/c-1/r)
-  return(p)
-}
-
-CDF.SAD(sarar$coefficients[1])
-
-
-#### Asymptotic varience
+#### Asymptotic variance
 
 SIGMA <- function(beta,lambda,rho,sig2){
   Sn <- diag(n)-lambda*Wn.a 
