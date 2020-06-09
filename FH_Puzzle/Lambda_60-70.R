@@ -2,6 +2,8 @@ library("R.matlab")
 library("spdep") 
 library("splm") 
 
+#############load data and weight matrices #########
+
 FHD <- readMat("FHD.mat")
 Wn <-  readMat("matrices.mat")
 
@@ -11,8 +13,8 @@ Yn <- FHD$data[1:264,3]  #### Investment rate
 Xn <- FHD$data[1:264,5]  #### Saving rate
 
 
-Wdia1 <- Wn$Wdia1
-W <- Wn$W
+Wdia1 <- Wn$Wdia1    #inverse distance 
+W <- Wn$W            #7 nearest neighbours
 Wn.a <- as.matrix(W)
 Mn.a <- Wn.a
 n <- 24
@@ -26,6 +28,11 @@ dt <- data.frame(id = rep(c(1:n),T), time =kronecker(1960:1970,rep(1,24)),Yn,Xn)
 
 Y.tilde.nt<-matrix(Yn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn,nrow=n,ncol=T)),T),n,T)
 X.tilde.nt<-matrix(Xn,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Xn,nrow=n,ncol=T)),T),n,T)
+
+#############################################################################
+# Table 1: SARAR(1,1) model: Maximum likelihood estimates of Parameters and #
+# standard errors between 1960-1970.                                        #
+#############################################################################
 
 sarar <- spml(formula = Yn~Xn, data = dt , listw = mat2listw(W), model = "within", spatial.error= "b",lag = T, LeeYu = T, Hess = F)
 summary(sarar)
@@ -706,7 +713,7 @@ Phi.ij <- function(i,j,beta,lambda,rho,sig2){
   
 } 
 
-###### g g^2 g^3 g^4
+###### the expected value of g g^2 g^3 g^4
 
 
 G.powers<- function(beta,lambda,rho,sig2){
@@ -1139,7 +1146,6 @@ gam.pwr<- sum(gam.vec)/MC.size
 gam.pwr1 <- gam.pwr/(16*n*n*n)
 
 Sigma2.nT <- (4/n)*g.powers[2]+(2/(n*(n-1)))*gam.con1[2] 
-
 Sigma.nT <- sqrt(Sigma2.nT)
 Sigma3.nT <- Sigma.nT*Sigma2.nT
 Sigma4.nT <- Sigma2.nT*Sigma2.nT
@@ -1196,20 +1202,6 @@ for(i in 1:length(seq.b)){
 
 plot(seq.b,der2.cgf)
 
-Der2.cgf.Wang <- function(u,a){
-  wn <- exp(-n*Sigma2.nT*a*a*u*u/2) 
-  der2 <-  (n*Sigma2.nT+((n^(1.5))*cum3.nt*(Sigma3.nT)*(u)+(1/2)*(n*n)*cum4.nt*(Sigma4.nT)*(u*u))*wn+
-              2*((1/2)*(n^(1.5))*cum3.nt*(Sigma3.nT)*(u*u)+(1/6)*(n*n)*cum4.nt*(Sigma4.nT)*(u*u*u))*(-n*Sigma2.nT*a*a*u)*wn+
-              ((1/6)*(n^(1.5))*cum3.nt*(Sigma3.nT)*(u*u*u)+(1/24)*(n*n)*cum4.nt*(Sigma4.nT)*(u*u*u*u))*wn*(n*Sigma2.nT*a*a-1)*n*Sigma2.nT*a*a)
-  return(der2)
-}
-seq.b <- seq(-5,5,0.1)
-der2.cgf.w <- NULL
-for(i in 1:length(seq.b)){
-  der2.cgf.w[i] <- Der2.cgf.Wang(seq.b[i],1.575)
-}
-
-plot(seq.b,der2.cgf.w)
 ###### find saddlepoints
 Sad <- function(a){
   
@@ -1231,7 +1223,6 @@ plot(sad.grid,sad.vals)
 
 ###### pdf
 
-
 p.nT <- function(a){
   p <- sqrt(n/(2*pi*Der2.cgf(Sad(a))))*exp(n*(cgf(Sad(a))-a*Sad(a)))
   return(p)
@@ -1248,6 +1239,12 @@ p.std<-p/c.int
 
 plot(theta.grid,p.std)
 
+#############################################################################
+# Table 2: SARAR(1,1) model: p-values of Saddlepoint (SAD) and first-order  #
+# asymptotic (ASY) approximation between 1960-1970.                         #
+#############################################################################
+
+#### cdf of saddlepoint approximaiton
 CDF.SAD1 <- function(b){
   theta.grid<-seq(-0.9999,0.9999,by=0.0001)
   p<-NULL
@@ -1262,19 +1259,7 @@ CDF.SAD1 <- function(b){
 1-CDF.SAD1(round(sarar$coefficients[1],4))   ####  sparse weights matrix:0.5768385, Wdia1: 0.4983091
 
 
-
-#### L-R 
-CDF.SAD <- function(b){
-  v <- Sad(b)
-  c <- v*sqrt(Der2.cgf(v))
-  r <- sign(v)*sqrt(2*n*(v*b-cgf(v)))
-  p <- 1-pnorm(r)+dnorm(r)*(1/c-1/r)
-  return(p)
-}
-
-CDF.SAD(sarar$coefficients[1])
-
-#### Asymptotic varience
+#### Asymptotic variance
 
 SIGMA <- function(beta,lambda,rho,sig2){
   Sn <- diag(n)-lambda*Wn.a 
