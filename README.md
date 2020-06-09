@@ -11,7 +11,10 @@ This repository contains the working paper "Saddlepoint approximations for spati
 
 5- In the FH_Puzzle folder (https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle), Lambda_60-70.R, Lambda_71-85.R, Lambda_86-20.R get the MLEs for three parameters and 2 weight matrices in three sub-periods: inverse distance and 7 nearest neighbours in Table 1. Following the similar Step 2-5 of the algorithm in Section 5, Lambda_60-70.R, Lambda_71-85.R, Lambda_86-20.R, Beta_60-70.R, Beta_71-85.R, Beta_86-20.R, Rho_60-70.R, Rho_71-85.R and Rho_86-20.R obtain the saddlepoint density approximation of the MLE of the parameter for 2 weight matrices in three sub-periods. Then we can compute the p-values of parameters available in Table 2. The name of R files consist of parameter and sub-period. 
 # Additional info.
--Author of the R codes: Davide La Vecchia.
--Creation data: May 2020.
--Last update: June 2020.
--R version: 3.6.1 (>=).
+Author of the R codes: Chaonan Jiang.
+
+Creation data: June 2020.
+
+Last update: June 2020.
+
+R version: 3.6.1 (>=).
