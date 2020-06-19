@@ -11,7 +11,7 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 * 7 nearest neighbor weight matrix
 
 
-# Instructions
+# Instructions for reproducibility
 
 1- [WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
 
