@@ -5,6 +5,11 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 1-2 in the manuscript.
 # Data 
 
+* Investment rate
+* Saving rate
+* inverse distance weight matrix
+* 7 nearest neighbor weight matrix
+
 
 # Instructions
 
