@@ -26,7 +26,7 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 # Additional info.
 * Author of the R codes: Chaonan Jiang.
 
-* Creation data: June 2020.
+* Creation date: June 2020.
 
 * Last update: June 2020.
 
