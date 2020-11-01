@@ -3,8 +3,15 @@
 This repository contains the working paper "Saddlepoint approximations for spatial panel data models", 2019, Chaonan Jiang, 
 Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-8 and Table 
 1-2 in the manuscript.
+# Data 
 
-# Content
+* Investment rate
+* Saving rate
+* inverse distance weight matrix
+* 7 nearest neighbor weight matrix
+
+
+# Instructions for reproducibility
 
 1- [WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
 
@@ -19,7 +26,7 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 # Additional info.
 * Author of the R codes: Chaonan Jiang.
 
-* Creation data: June 2020.
+* Creation date: June 2020.
 
 * Last update: June 2020.
 
