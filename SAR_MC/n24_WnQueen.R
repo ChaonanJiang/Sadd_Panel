@@ -369,8 +369,8 @@ for (j in 1:N.C) {
   lambda.hat <- optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum
   for (i in 1:boot.times) {
     V<- rnorm(N)  
-    Yn1.hat <- solve((diag(N)-kronecker(diag(T),lambda.hat1*Wn)))%*%(X*beta + rep(Cn0,T) + V) 
-    lambda.hatq[i+boot.times*(j-1)]<-optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1.hat, maximum = T)$maximum 
+    Yn1.hat <- solve((diag(N)-kronecker(diag(T),lambda.hat*Wn)))%*%(X*beta + rep(Cn0,T) + V) 
+    lambda.hat1[i+boot.times*(j-1)]<-optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1.hat, maximum = T)$maximum 
   }
   
 }
