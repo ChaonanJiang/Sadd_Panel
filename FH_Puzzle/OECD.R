@@ -125,3 +125,19 @@ for (i in 1:24) {
     segments(FHD$long[i], FHD$lat[i],FHD$long[a[j]], FHD$lat[a[j]],col = "blue",lwd = 0.6)
   }
 }
+
+####### 7NN Istanbul
+a <- c(which(W.a[23,]!=0),23)
+plot(FHD$long[a], FHD$lat[a],pch=16, cex = .6, ylab= " ", xlab = " ",frame.plot = FALSE, yaxt = "n", xaxt = "n")
+#points(FHD$long[23], FHD$lat[23],pch=16, cex = .6)
+for(j in 1:7){
+  segments(FHD$long[23], FHD$lat[23],FHD$long[a[j]], FHD$lat[a[j]],col = "blue")
+}
+text(FHD$long[23], FHD$lat[23]-1,"Istanbul",cex=0.6)
+text(FHD$long[a[1]], FHD$lat[a[1]]+1,"Vienna",cex=0.6)
+text(FHD$long[a[2]], FHD$lat[a[2]]+1,"Bern",cex=0.6)
+text(FHD$long[a[3]], FHD$lat[a[3]]+1,"Copenhagen",cex=0.6)
+text(FHD$long[a[4]]+1, FHD$lat[a[4]]+0.6,"Helsinki",cex=0.6)
+text(FHD$long[a[5]], FHD$lat[a[5]]+1,"Athens",cex=0.6)
+text(FHD$long[a[6]], FHD$lat[a[6]]+1,"Rome",cex=0.6)
+text(FHD$long[a[7]], FHD$lat[a[7]]+1,"Stockholm",cex=0.6)

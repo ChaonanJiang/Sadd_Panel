@@ -460,7 +460,7 @@ fbplot(den.1,method = "MBD",ylim = c(0,0.5),xaxt = 'n',color=NA,outliercol=NA,ba
 
 ###### zoom on the right tail
 lambda.hat2 <- matrix(lambda.hat1,boot.times,N.C)
-grid <- seq(0.5,0.99,0.01)
+grid <- seq(0.48,0.99,0.01)
 DEN <- NULL
 den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
 for (j in 1:N.C) {
@@ -474,10 +474,10 @@ for (j in 1:N.C) {
 
 plot(my.hist$breaks,
      c(my.hist$density,0)
-     ,type="s",xlim=c(0.5,0.99),ylim = c(0,0.5),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")
+     ,type="s",xlim=c(0.48,0.99),ylim = c(0,0.6),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")
 lines(theta.grid,p.std,typ='l',col="blue",ylim = c(0,2),lwd=2)
 par(new=TRUE)
-fbplot(den.1,method = "MBD",ylim = c(0,0.5),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
+fbplot(den.1,method = "MBD",ylim = c(0,0.6),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
 
 ####################### CDF of saddlepoint approximation ###############
 
