@@ -377,7 +377,7 @@ for (j in 1:N.C) {
 
 proc.time() - ptm      
 
-lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+lambda.hat2 <- matrix(lambda.hat1,boot.times,N.C)
 grid <- seq(-0.99,0.99,0.01)
 DEN <- NULL
 den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
@@ -390,11 +390,11 @@ for (j in 1:N.C) {
   }
 }
 
-#################################################################################
+###################################################################################
 # Figure C.2: Density plot for saddlepoint (continuous line) vs asymptotic normal #
-# (dotted line) probability approximation to the exact density for the MLE,     #
-# for n=24, Wn=Queen.                                                                #
-#################################################################################
+# (dotted line) probability approximation to the exact density for the MLE,       #
+# for n=24, Wn=Queen.                                                             #
+###################################################################################
 
 Z11.plot<-(z1.2-mean(z1.2))/(1)
 my.hist<-hist(Z11.plot,freq = F, 
@@ -416,7 +416,7 @@ lines(theta.grid,dnorm(theta.grid,0,sqrt(asy.sigma2)),
 # lines)                                                                        #
 #################################################################################
 
-lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+lambda.hat2 <- matrix(lambda.hat1,boot.times,N.C)
 grid <- seq(-0.99,0.99,0.01)
 DEN <- NULL
 den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
@@ -429,7 +429,7 @@ for (j in 1:N.C) {
   }
 }
 
-source("fbplot.R")
+source("SAR_MC/fbplot.R")
 plot(my.hist$breaks,
      c(my.hist$density,0)
      ,type="s",xlim=c(-0.99,0.99),ylim = c(0,1.8),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")
@@ -438,7 +438,7 @@ par(new=TRUE)
 fbplot(den.1,method = "MBD",ylim = c(0,1.8),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
 
 ###### zoom on the left tail
-lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+lambda.hat2 <- matrix(lambda.hat1,boot.times,N.C)
 grid <- seq(-0.99,-0.5,0.01)
 DEN <- NULL
 den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
@@ -459,7 +459,7 @@ par(new=TRUE)
 fbplot(den.1,method = "MBD",ylim = c(0,0.5),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )
 
 ###### zoom on the right tail
-lambda.hat2 <- matrix(lambda.hat,boot.times,N.C)
+lambda.hat2 <- matrix(lambda.hat1,boot.times,N.C)
 grid <- seq(0.5,0.99,0.01)
 DEN <- NULL
 den.1 <- matrix(rep(0,N.C*length(grid)),length(grid),N.C)
@@ -532,7 +532,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 
 
 ###############################################################################
-# Figure C.3: Relative error (in absolute value) for the approximate left tail  #
+# Figure C.3: Relative error (in absolute value) for the approximate left tail#
 # probability, as obtained using the Gaussian asymptotic theory (dotted line),#
 # the Edgeworth approximation (dotted line with diamonds) and saddlepoint     #
 # approximation (continuous line) for the MLE. n=24 and Wn=queen.             #

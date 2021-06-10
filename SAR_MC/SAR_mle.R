@@ -53,12 +53,12 @@ mylog.lik<-function(lambda,Yn1) {
 set.seed(123)
 
 z1 <- matrix(rep(0,MC.size), MC.size,1)
-
+W <- cell2nb(r1,c1)   #rook type
+Wl <- nb2listw(W)   #listw object
+Wn <- listw2dgCMatrix(Wl)  #sparse matrix
 ### MC repeat 25000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1)   #rook type
-  Wl <- nb2listw(W)   #listw object
-  Wn <- listw2dgCMatrix(Wl)  #sparse matrix
+
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
@@ -75,12 +75,12 @@ for(i in 1:MC.size){
 set.seed(123)
 
 z1.2 <- matrix(rep(0,MC.size), MC.size,1)
-
+W <- cell2nb(r1,c1,type = "queen")   #queen type
+Wl <- nb2listw(W)   #listw object
+Wn <- listw2dgCMatrix(Wl)  #sparse matrix
 ### MC repeat 25000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen")   #queen type
-  Wl <- nb2listw(W)   #listw object
-  Wn <- listw2dgCMatrix(Wl)  #sparse matrix
+
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
@@ -100,12 +100,12 @@ for(i in 1:MC.size){
 set.seed(123)
 
 z1.3 <- matrix(rep(0,MC.size), MC.size,1)
-
+W <- cell2nb(r1,c1,type = "queen", torus=T)   #queen with torus type
+Wl <- nb2listw(W)   #listw object
+Wn <- listw2dgCMatrix(Wl)  #sparse matrix
 # MC repeat 25000 times
 for(i in 1:MC.size){
-  W <- cell2nb(r1,c1,type = "queen", torus=T)   #queen with torus type
-  Wl <- nb2listw(W)   #listw object
-  Wn <- listw2dgCMatrix(Wl)  #sparse matrix
+
   Cn0 <- rnorm(n)   #fixed effects
   X <- rnorm(N) #matrix(1,nrow=N,ncol=1)     #non stochastic time varying regressors
   V<- rnorm(N)      
