@@ -1,8 +1,8 @@
 # Overview
 
-This repository contains the working paper "Saddlepoint approximations for spatial panel data models", 2019, Chaonan Jiang, 
-Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-8 and Table 
-1-2 in the manuscript.
+This repository contains the working paper "Saddlepoint approximations for spatial panel data models", 2021, Chaonan Jiang, 
+Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-7 and Table 
+1-3 in the manuscript.
 # Data 
 
 * Investment rate
