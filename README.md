@@ -21,7 +21,7 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 
 4- [OECD.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle/OECD.R) shows London network for inverse distance and 7 nearest neighbours weight matrices, as shown in Figure 8.
 
-5- In the [FH_Puzzle folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle), FH_lambda.R obtains the MLEs for three parameters and 2 weight matrices in three sub-periods 1960-1970, 1971-1985 and 1986-2000 shown in Table 1. Following the similar Step 2-5 of the algorithm in Section 5, FH_lambda.R, FH_rho.R and FH_LR.R perform the saddlepoint and Wald tests for the composite hypotheses ```math \lambda = 0```, ```math \rho = 0``` and ```math \lambda = \rho =0```, respectively. Then we can compute the p-values available in Table 2 under 2 weight matrices in three sub-periods. 
+5- In the [FH_Puzzle folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle), FH_lambda.R obtains the MLEs for three parameters and 2 weight matrices in three sub-periods 1960-1970, 1971-1985 and 1986-2000 shown in Table 1. Following the similar Step 2-5 of the algorithm in Section 5, FH_lambda.R, FH_rho.R and FH_LR.R perform the saddlepoint and Wald tests for the composite hypotheses ```math SE =\lambda = 0```, ```math SE =\rho = 0``` and ```math SE =\lambda = \rho =0```, respectively. Then we can compute the p-values available in Table 2 under 2 weight matrices in three sub-periods. 
 # Additional info.
 * Author of the R codes: Chaonan Jiang.
 
