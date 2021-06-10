@@ -208,7 +208,7 @@ M.matrix <- function(i,beta,lambda,rho,sig2){
   
   
   a <- n*(GX)[i,]%*%(t((GX)))[,i]/sig2  ###[1,1]
-  b <- n*beta*(G.dot%*%GX)[i,]*(t(GX))[,i]/sig2                 ###[2,1]
+  b <- n*beta*((G.dot%*%GX)[i,])%*%((t(GX))[,i])/sig2                 ###[2,1]
   c <- 0                                                          ###[3,1]
   d <- 0                                                          ###[4,1]
   e <- n*(T-1)*(G.dot%*%t(G.dot)+G2n)[i,i]+n*beta*beta*(G.dot%*%GX)[i,]%*%(t(G.dot%*%GX))[,i]/sig2###[2,2]
@@ -219,7 +219,7 @@ M.matrix <- function(i,beta,lambda,rho,sig2){
   l <- n*(T-1)/(2*sig2*sig2)  ###[4,4]
   
   
-  M.1 <- matrix(c(a,b,0,0,b,e,f,g,0,f,h,k,0,g,k,l),4,4)  
+  M.1 <- matrix(c(a,b,c,d,b,e,f,g,c,f,h,k,d,g,k,l),4,4)  
   
   return(M.1) 
 } 

@@ -1302,6 +1302,6 @@ SIGMA <- function(beta,lambda,rho,sig2){
 } 
 
 
-Asy.sig2 <- solve(SIGMA(beta,lambda,rho,sig2))[2,2]/m
+Asy.sig2 <- (solve(SIGMA(beta,lambda,rho,sig2)))[2,2]/m
    ### 0.1918893 
 1-pnorm(sarar1$coefficients[1],mean=0,sd=sqrt(Asy.sig2))

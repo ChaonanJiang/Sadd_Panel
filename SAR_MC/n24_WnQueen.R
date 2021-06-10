@@ -2,7 +2,7 @@ library("spdep")
 library("splm") 
 
 ######### LOAD the MC results for MLE, z1.2 data from SAR_mle.rdata
-load("SAR_mle.rdata")
+load("Data/SAR_mle.rdata")
 
 
 r1 <- 6 
@@ -359,16 +359,18 @@ ptm <- proc.time()
 set.seed(1234)
 N.C <- 100
 boot.times <- 499    #B=49,499 oor 999
-lambda.hat <- vector(length = boot.times*N.C)
+lambda.hat1 <- vector(length = boot.times*N.C)
 for (j in 1:N.C) {
   
   Cn0 <- rnorm(n)   #fixed effects 
   X <- rnorm(N)     #non stochastic time varying regressors 
-         
+  V<- rnorm(N)  
+  Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V)
+  lambda.hat <- optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum
   for (i in 1:boot.times) {
     V<- rnorm(N)  
-    Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V) 
-    lambda.hat[i+boot.times*(j-1)]<-optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1, maximum = T)$maximum 
+    Yn1.hat <- solve((diag(N)-kronecker(diag(T),lambda.hat1*Wn)))%*%(X*beta + rep(Cn0,T) + V) 
+    lambda.hatq[i+boot.times*(j-1)]<-optimize(mylog.lik,interval=c(-0.99,0.99), Yn1=Yn1.hat, maximum = T)$maximum 
   }
   
 }
@@ -389,7 +391,7 @@ for (j in 1:N.C) {
 }
 
 #################################################################################
-# Figure 4: Density plot for saddlepoint (continuous line) vs asymptotic normal #
+# Figure C.2: Density plot for saddlepoint (continuous line) vs asymptotic normal #
 # (dotted line) probability approximation to the exact density for the MLE,     #
 # for n=24, Wn=Queen.                                                                #
 #################################################################################
@@ -404,7 +406,7 @@ lines(theta.grid,dnorm(theta.grid,0,sqrt(asy.sigma2)),
       col="red",lwd=2, lty=2)
 
 #################################################################################
-# Figure 7: SAR(1) model.                                                       #
+# Figure 5: SAR(1) model.                                                       #
 # Density plots for saddlepoint (continuous line) vs the functional boxplot of  #
 # the parametric bootstrap probability approximation to the exact density (as   #
 # expressed by the histogram and obtained using MC with size 25000) for the MLE,#
@@ -530,7 +532,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 
 
 ###############################################################################
-# Figure 5: Relative error (in absolute value) for the approximate left tail  #
+# Figure C.3: Relative error (in absolute value) for the approximate left tail  #
 # probability, as obtained using the Gaussian asymptotic theory (dotted line),#
 # the Edgeworth approximation (dotted line with diamonds) and saddlepoint     #
 # approximation (continuous line) for the MLE. n=24 and Wn=queen.             #
