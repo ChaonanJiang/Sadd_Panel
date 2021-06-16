@@ -3,9 +3,11 @@
 This repository contains the working paper "Saddlepoint approximations for spatial panel data models", 2021, Chaonan Jiang, 
 Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-7 and Table 
 1-3 in the manuscript.
+
 # Data 
 [FHD.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/FHD.mat) includes investment and saving rates of 24 Organisation for Economic Co-operation and Development (OECD) countries between 1960 and 2000.
-[matrices.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/matrices.mat) contains inverse distance weight matrix and 7 nearest neighbor weight matrix.
+
+[matrices.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/matrices.mat) contains inverse distance weight matrix and 7 nearest neighbor weight matrix  adopted in SARAR(1,1).
 
 
 # Instructions for reproducibility
