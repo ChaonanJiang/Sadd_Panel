@@ -4,11 +4,8 @@ This repository contains the working paper "Saddlepoint approximations for spati
 Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-7 and Table 
 1-3 in the manuscript.
 # Data 
-
-* Investment rate
-* Saving rate
-* inverse distance weight matrix
-* 7 nearest neighbor weight matrix
+[FHD.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/FHD.mat) includes investment and saving rates of 24 Organisation for Economic Co-operation and Development (OECD) countries between 1960 and 2000.
+[matrices.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/matrices.mat) contains inverse distance weight matrix and 7 nearest neighbor weight matrix.
 
 
 # Instructions for reproducibility
