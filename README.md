@@ -13,11 +13,11 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 
 # Instructions for reproducibility
 
-1- [WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
+1- [WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
 
-2- [SARAR.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SARAR_MC/SARAR.R) generates a MC simulation based on SARAR(1,1) model to compare the distribution of MLE to the Gaussian asymptotic distribution via QQ-plots in Figure 2.
+2- [SARAR_spml.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/SARAR_spml.R) generates a MC simulation based on SARAR(1,1) model to compare the distribution of MLE to the Gaussian asymptotic distribution via QQ-plots in Figure 2.
 
-3- In the [SAR_MC folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/SAR_MC), n24_WnRook.R, n24_WnQueen.R, n24_WnQueen_Torus.R, n100_WnRook.R, n100_WnQueen.R, n100_WnQueen_Torus.R make use of the algorithm in Section 5 of the paper to obtain the saddlepoint density approximation of the MLE for two sample sizes n = 24 or n = 100 and three weight matrices: Rook, Queen, Queen with torus. The codes generate Figure 3-6 as available in the paper. The size and weight matrix are indicated by the names of R files.
+3- In the [MC folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC), n24_WnRook.R, n24_WnQueen.R, n24_WnQueen_Torus.R, n100_WnRook.R, n100_WnQueen.R, n100_WnQueen_Torus.R make use of the algorithm in Section 5 of the paper to obtain the saddlepoint density approximation of the MLE for two sample sizes n = 24 or n = 100 and three weight matrices: Rook, Queen, Queen with torus. The codes generate Figure 3-6 as available in the paper. The size and weight matrix are indicated by the names of R files.
 
 4- [OECD.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle/OECD.R) shows London network for inverse distance and 7 nearest neighbours weight matrices, as shown in Figure 7.
 
