@@ -1,4 +1,4 @@
-###### Figure 2: SAR(1) model: QQ-plot vs normal of the MLE, for different sample sizes and different weight matrices ######
+###### Figure C.1: SAR(1) model: QQ-plot vs normal of the MLE, for different sample sizes and different weight matrices ######
 
 library("spdep")
 library("splm")
