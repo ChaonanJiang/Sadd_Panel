@@ -1,3 +1,7 @@
+############################################################################
+############# Test for the null hypothese lambda = rho =  0 ################
+############################################################################
+
 library("spdep") 
 library("splm") 
 library("graphics")
@@ -13,7 +17,7 @@ Wn <-  readMat("matrices.mat")
 
 ############# load data ###############
 
-index <- 1
+index <- 1  ## time index: 1 -> 1960-1970, 2 -> 1971-1985, 3 -> 1986-2000
 
 if(index == 1){
   Yn <- FHD$data[1:264,3]  #### Investment rate
@@ -31,7 +35,7 @@ if(index == 1){
   print("Wrong data")
 }
 
-W.index <- 1
+W.index <- 1  ## weight matrix index: 1 -> 7 nearest neighbors, 2 -> inverse distance
 
 if(W.index == 1){
   W <- Wn$W   # 7NN
