@@ -429,7 +429,7 @@ for (j in 1:N.C) {
   }
 }
 
-source("SAR_MC/fbplot.R")
+source("fbplot.R")
 plot(my.hist$breaks,
      c(my.hist$density,0)
      ,type="s",xlim=c(-0.99,0.99),ylim = c(0,1.8),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")

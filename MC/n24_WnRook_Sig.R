@@ -1,10 +1,9 @@
 library("spdep") 
 library("splm") 
-library("graphics")
+#library("graphics")
 
 
-######### LOAD the MC results for MLE, z1 data from SAR_mle.rdata
-#load("SAR_mle.rdata")
+
 
 r1 <- 6 
 c1 <-4 
@@ -104,7 +103,7 @@ for (i in 1:MC.size) {
   lambda.hat[i] <- f$par[1]
   sig2.hat[i] <- f$par[2]
 }
-hist(lambda.hat,freq = F, 
+my.hist <- hist(lambda.hat,freq = F, 
      breaks = 80, xlim = c(-1,1),ylim = c(0,3),
      main = "",
      xlab="", col="gray")
@@ -514,11 +513,11 @@ plot(theta.grid,p.std)
 
 ####### fbplot ############
 #set.seed(1234)
-fb.size <- 30
+fb.size <- 100
 theta.grid<-seq(-0.99,0.99,by=0.01)
 p.fb1 <- matrix(ncol = fb.size,nrow = length(theta.grid))
 MC.size <- 50
-lambda.hat <- numeric(length = fb.size)
+#lambda.hat <- numeric(length = fb.size)
 sig2.hat <- numeric(length = fb.size)
 for (s in 1:fb.size) {
   
@@ -529,7 +528,7 @@ for (s in 1:fb.size) {
   Yn1 <- solve((diag(N)-kronecker(diag(T),lambda1*Wn)))%*%(X*beta + rep(Cn0,T) + V) 
   Y.tilde.nt<-matrix(Yn1,nrow=n,ncol=T)-matrix(rep(rowMeans(matrix(Yn1,nrow=n,ncol=T)),T),n,T)
   f<-nlminb(start = c(0,0.1), objective = mylog.lik.neg,lower = c(-0.99, 0.001), upper= c(0.99,Inf), Yn1=Yn1)
-  lambda.hat[s] <- f$par[1]
+  #lambda.hat[s] <- f$par[1]
   sig2.hat[s] <- f$par[2]
   
   
@@ -612,24 +611,20 @@ for (s in 1:fb.size) {
 }
 
 proc.time() - ptm
-save.image(file='n24_WnRook_Sig1.RData')
 
-#library("fda")
-lamda.hat1 <- lambda.hat
 
-lambda.hat.c <- cbind(lambda.hat,lambda.hat1)
-p.fb.c <- cbind(p.fb.c,p.fb50)
+p.fb.omit <- p.fb1[,!is.na(p.fb1[1,])]
 
-p.fb.omit <- p.fb.c[,!is.na(p.fb.c[1,])]
+####################################################################################
+# Figure 6: SAR(1) model: Functional boxplots of saddlepoint density approximation #
+# to the exact density (as expressed by the histogram), for the MLE                #
+####################################################################################
+source("fbplot.R")
 
-my.hist <- hist(lambda.hat,freq = F, 
-     breaks = 80, xlim = c(-1,1),ylim = c(0,2.5),
-     main = "",
-     xlab="", col="gray")
 plot(my.hist$breaks,
      c(my.hist$density,0)
      ,type="s",xlim=c(-0.99,0.99),ylim = c(0,2.5),lwd=2,xlab=" ", ylab="Density", main=" ",col="gray52")
-lines(theta.grid,p.std,col="blue",lwd=2,ylim = c(0,2.5))
+#lines(theta.grid,p.std,col="blue",lwd=2,ylim = c(0,2.5))
 
 par(new=TRUE)
 fbplot(p.fb.omit,method = "MBD",ylim = c(0,2.5),xaxt = 'n',color=NA,outliercol=NA,barcol="orange3",ylab=" ",xlab=" " )

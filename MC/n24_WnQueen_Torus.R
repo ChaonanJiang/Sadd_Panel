@@ -395,7 +395,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 
 
 ###############################################################################
-# Figure 5: Relative error (in absolute value) for the approximate right tail #
+# Figure C.3: Relative error (in absolute value) for the approximate right tail #
 # probability, as obtained using the Gaussian asymptotic theory (dotted line),#
 # the Edgeworth approximation (dotted line with diamonds) and saddlepoint     #
 # approximation (continuous line) for the MLE. n=24 and Wn=queen with torus.  #
