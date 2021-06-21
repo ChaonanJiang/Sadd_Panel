@@ -20,7 +20,7 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 
 4- [n24_WnRook_Sig.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/n24_WnRook_Sig.R) and  [n24_WnQueen_Sig.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/n24_WnQueen_Sig.R) generate functional boxplots of saddlepoint density approximation to the exact density of the MLE for Rook and Queen and the sample size n = 24, shown in Figure 6.
 
-5- In the [Test_Nuisance folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Test_Nuisance), TestNuisance_Rook.R and TestNuisance_Queen.R make use of Algorithm 2 in Section 6 of the paper to perform Wald and saddlepoint tests for Rook and Queen, respectively. Then, we compute quantiles using 100 repetitions of each test statistic available in Table 1.
+5- In the [Test_Nuisance folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/Test_Nuisance), TestNuisance_Rook.R and TestNuisance_Queen.R make use of Algorithm 2 in Section 6 of the paper to perform Wald and saddlepoint tests for Rook and Queen, respectively. Then, we compute quantiles using 100 repetitions of each test statistic available in Table 1.
 
 6- [OECD.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle/OECD.R) shows London network for inverse distance and 7 nearest neighbours weight matrices, as shown in Figure 7.
 
