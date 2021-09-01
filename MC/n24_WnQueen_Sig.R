@@ -615,7 +615,7 @@ proc.time() - ptm
 p.fb.omit <- p.fb[,!is.na(p.fb[1,])]
 
 ####################################################################################
-# Figure 6: SAR(1) model: Functional boxplots of saddlepoint density approximation #
+# Figure 7 in Appendix D.6: SAR(1) model: Functional boxplots of saddlepoint density approximation #
 # to the exact density (as expressed by the histogram), for the MLE                #
 ####################################################################################
 source("fbplot.R")

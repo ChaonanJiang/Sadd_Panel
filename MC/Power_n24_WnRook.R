@@ -461,7 +461,7 @@ stopCluster(cl)
 ####### estimated size ################
 
 #############################################################################
-# Figure 5: Estimated size versus nominal size between 1% and 10% under     #
+# Figure 4: Estimated size versus nominal size between 1% and 10% under     #
 # saddlepoint (continuous line), Edgeworth (dotted line with diamonds) and  # 
 # first-order asymptotic approximation (dotted line).                       #
 # Sample size is n = 24 and Wn is Rook, while lambda_0 = 0:0.               #

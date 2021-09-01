@@ -2,7 +2,7 @@
 
 This repository contains the working paper "Saddlepoint approximations for spatial panel data models", 2021, Chaonan Jiang, 
 Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-5 and Table 
-1-3 in the manuscript.
+1-3 in the manuscript, and Figure 1-7 in the appendices.
 
 # Data 
 [FHD.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/FHD.mat) includes investment and saving rates of 24 Organisation for Economic Co-operation and Development (OECD) countries between 1960 and 2000.
@@ -12,21 +12,34 @@ Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains 
 
 # Instructions for reproducibility
 
+## Figures and tables in the paper
+
 1- [WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices shown in Figure 1. 
 
 2- [SARAR_spml.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/SARAR_spml.R) generates a MC simulation based on SARAR(1,1) model to compare the distribution of MLE to the Gaussian asymptotic distribution via QQ-plots in Figure 2.
 
-3- In the [MC folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC), n24_WnRook.R, n24_WnQueen.R, n24_WnQueen_Torus.R, n100_WnRook.R, n100_WnQueen.R, n100_WnQueen_Torus.R make use of Algorithm 1 in Section 5 of the paper to obtain the saddlepoint density approximation of the MLE for two sample sizes n = 24 or n = 100 and three weight matrices: Rook, Queen, Queen with torus based on SAR(1) model. The codes generate Figure 3 as available in the paper. The size and weight matrix are indicated by the names of R files. 
+3- In the [MC folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC), n24_WnRook.R, n24_WnQueen.R, n24_WnQueen_Torus.R, n100_WnRook.R, n100_WnQueen.R, n100_WnQueen_Torus.R make use of Algorithm 1 in Section 5 of the paper to obtain the saddlepoint density approximation of the MLE for two sample sizes n = 24 or n = 100 and three weight matrices: Rook, Queen, Queen with torus based on SAR(1) model. Figure 5 is produced by n24_WnQueen.R. The codes generate Figure 3 as available in the paper. The size and weight matrix are indicated by the names of R files. 
 
 4- [Power_n24_WnRook.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/Power_n24_WnRook.R) makes a comparison between estimated and nominal size for different approximations shown in Figure 4.
 
-5- [n24_WnRook_Sig.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/n24_WnRook_Sig.R) and  [n24_WnQueen_Sig.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/n24_WnQueen_Sig.R) generate functional boxplots of saddlepoint density approximation to the exact density of the MLE for Rook and Queen and the sample size n = 24, shown in Figure 5.
 
-6- In the [Test_Nuisance folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/Test_Nuisance), TestNuisance_Rook.R and TestNuisance_Queen.R make use of Algorithm 2 in Appendix C.2 to perform Wald and saddlepoint tests for Rook and Queen, respectively. Then, we compute quantiles using 100 repetitions of each test statistic available in Table 1.
+
+5- In the [Test_Nuisance folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/Test_Nuisance), TestNuisance_Rook.R and TestNuisance_Queen.R make use of Algorithm 2 in Appendix C.2 to perform Wald and saddlepoint tests for Rook and Queen, respectively. Then, we compute quantiles using 100 repetitions of each test statistic available in Table 1.
 
 <!-- 7- [OECD.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle/OECD.R) shows London network for inverse distance and 7 nearest neighbours weight matrices, as shown in Figure 7.-->
 
-7- In the [FH_Puzzle folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle), FH_lambda.R obtains the MLEs for three parameters and 2 weight matrices in three sub-periods 1960-1970, 1971-1985 and 1986-2000 shown in Table 2. Following the similar steps of Algorithm 2 in Appendix C.2, FH_lambda.R, FH_rho.R and FH_LR.R perform the saddlepoint and Wald tests for the composite hypotheses <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda=0" title="\lambda=0" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=\rho=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\rho=0" title="\rho=0" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda=\rho=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda=\rho=0" title="\lambda=\rho=0" /></a>, respectively. Then, we can compute the p-values available in Table 3 under 2 weight matrices in three sub-periods. 
+7- In the [FH_Puzzle folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/FH_Puzzle), FH_lambda.R obtains the MLEs for three parameters and 2 weight matrices in three sub-periods 1960-1970, 1971-1985 and 1986-2000 shown in Table 2. Following the similar steps of Algorithm 2 in Appendix C.2, FH_lambda.R, FH_rho.R and FH_LR.R perform the saddlepoint and Wald tests for the composite hypotheses <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda=0" title="\lambda=0" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=\rho=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\rho=0" title="\rho=0" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda=\rho=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda=\rho=0" title="\lambda=\rho=0" /></a>, respectively. Then, we can compute the p-values available in Table 3 under 2 weight matrices in three sub-periods.
+
+## Figures in the appendices
+
+1- [WeightMatrix.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/WeightMatrix.R) displays the geometry of three different spatial weight matrices, for n=100, shown in Figure 1. 
+
+2- [SAR_mle.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/SAR_mle.R) generates a MC simulation based on SAR(1) model to compare the distribution of MLE to the Gaussian asymptotic distribution via QQ-plots in Figure 2.
+
+3- In the [MC folder](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC), n100_WnRook.R, n100_WnQueen.R and n100_WnQueen_Torus.R generate PP-plots for n = 100, shown in Figure 3. n24_WnRook.R, n24_WnQueen.R produce density plots of the MLE, shown in Figure 4. The size and weight matrix are indicated by the names of R files. Figure 5 is created by n24_WnRook.R, n24_WnQueen.R, n24_WnQueen_Torus.R. Figure 6 is the same as Figure 5 in the paper, generated by n24_WnQueen.R.
+
+7- [n24_WnRook_Sig.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/n24_WnRook_Sig.R) and  [n24_WnQueen_Sig.R](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/MC/n24_WnQueen_Sig.R) generate functional boxplots of saddlepoint density approximation to the exact density of the MLE for Rook and Queen and the sample size n = 24, shown in Figure 7.
+
 # Additional info.
 * Author of the R codes: Chaonan Jiang.
 

@@ -369,7 +369,7 @@ CDF.EDG <- function(x){
 }
 
 ###############################################################################
-# Figure 3: PP-plot for saddlepoint (continuous line) vs asymptotic normal    #
+# Figure 3 in Appendix D.3: PP-plot for saddlepoint (continuous line) vs asymptotic normal    #
 # (dotted line) probability approximation for n=100 and Wn=rook.              #
 ###############################################################################
 

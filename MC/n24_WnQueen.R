@@ -391,7 +391,7 @@ for (j in 1:N.C) {
 }
 
 ###################################################################################
-# Figure C.2: Density plot for saddlepoint (continuous line) vs asymptotic normal #
+# Figure 4 in Appendix D.3: Density plot for saddlepoint (continuous line) vs asymptotic normal #
 # (dotted line) probability approximation to the exact density for the MLE,       #
 # for n=24, Wn=Queen.                                                             #
 ###################################################################################
@@ -532,7 +532,7 @@ abline(0,1,type="l",lty=4,lwd=3)
 
 
 ###############################################################################
-# Figure C.3: Relative error (in absolute value) for the approximate left tail#
+# Figure 5 in Appendix D.4: Relative error (in absolute value) for the approximate left tail#
 # probability, as obtained using the Gaussian asymptotic theory (dotted line),#
 # the Edgeworth approximation (dotted line with diamonds) and saddlepoint     #
 # approximation (continuous line) for the MLE. n=24 and Wn=queen.             #
@@ -560,6 +560,6 @@ smooth <- smooth.spline(seq.c,abs(rela.sad),df=16)
 smooth1 <- smooth.spline(seq.c,abs(rela.edg),df=16)
 plot(smooth1,col="dark green",pch=18,  lwd=2, ylim = c(0,1.1),xlab = "z",
      ylab = "Relative error",main="")     #edgeworth
-lines(smooth,col="blue",lwd=2)         #saddlepint
+lines(smooth,col="blue",lwd=2)         #saddlepoint
 lines(seq.c,abs(rela.asy),col="red",type="l",lty=2,  lwd=2)   #asymptotic normal
 
