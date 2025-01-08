@@ -4,6 +4,9 @@ This repository contains the working paper "Saddlepoint approximations for spati
 Davide La Vecchia, Elvezio Ronchetti, Olivier Scaillet. The repository contains R files which reproduce Figure 1-5 and Table 
 1-3 in the manuscript, and Figure 1-7 in the appendices.
 
+# Appendix
+[Appendices_unblinded.pdf](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Appendix/Appendices_unblinded.pdf) includes the supplementary materials of this paper.
+
 # Data 
 [FHD.mat](https://github.com/ChaonanJiang/Sadd_Panel/blob/master/Data/FHD.mat) includes investment and saving rates of 24 Organisation for Economic Co-operation and Development (OECD) countries between 1960 and 2000.
 
